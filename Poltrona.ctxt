@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Poltrona
+comment0.text=\n\ Write\ a\ description\ of\ class\ Poltrona\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=identificacao\ setor
+comment1.target=Poltrona(java.lang.String,\ int)
+comment2.params=
+comment2.target=java.lang.String\ getIdentificacao()
+comment3.params=
+comment3.target=int\ getSetor()
+comment4.params=
+comment4.target=boolean\ estaOcupada()
+comment5.params=
+comment5.target=void\ reserva()
+comment6.params=
+comment6.target=void\ libera()
+comment7.params=
+comment7.target=java.lang.String\ toString()
+numComments=8
