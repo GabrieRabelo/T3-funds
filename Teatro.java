@@ -114,13 +114,12 @@ public class Teatro{
      * @return Retorna a matriz 
      */
     public int[] buscaPoltronasContiguas(int setor, int n){
-        if(setor<0 || setor>3) return null;
         int contL=0;
         for(int i=0;i<sala.length;i++){
             int cont=0;
-            for(int j=0;j<sala[i].length;i++){
+            for(int j=0;j<sala[i].length;j++){
                 if(sala[i][j].getSetor()==setor){
-                    if(!sala[i][j].estaOcupada()) cont++;
+                    if(!(sala[i][j].estaOcupada())) cont++;
                         else cont=0;
                     if(cont>=n){
                         contL++;
@@ -130,16 +129,15 @@ public class Teatro{
             }
 
         }
-
         if(contL == 0) return null;
 
         int[] contiguas = new int[contL];
 
         int cont=0, k=0;
         for(int i=0;i<sala.length;i++){
-            for(int j=0;j<sala[i].length;i++){
+            for(int j=0;j<sala[i].length;j++){
                 if(sala[i][j].getSetor()==setor){
-                    if(!sala[i][j].estaOcupada()) cont++;
+                    if(!(sala[i][j].estaOcupada())) cont++;
                         else cont=0;
                     if(cont>=n){
                         contiguas[k]=i;
@@ -148,7 +146,6 @@ public class Teatro{
                     }
                 }
             }
-
         }
         return contiguas;
     }
