@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class Teatro here.
  *
@@ -10,11 +9,19 @@ public class Teatro
    private String nomeSala;
    private Poltrona[][] sala;
    
+   /**
+    * Este método constrói uma matriz de poltronas, inicializando todas poltronas do teatro, nulas por padrão e inicializadas por um metodo.
+    * @param nomeSala
+    */
    public Teatro(String nomeSala){
        this.nomeSala = nomeSala;
        sala = new Poltrona[12][20];
        inicializa();
    }
+
+   /**
+    * Este método inicializa as poltronas do teatro, indicando seu setor dependendo da posição em que ela se encontra.
+    */
    public void inicializa(){
        String letras ="ABCDEFGHIJKL";
        int setor;
