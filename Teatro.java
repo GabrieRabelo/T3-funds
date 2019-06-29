@@ -18,6 +18,10 @@ public class Teatro{
             inicializa();
     }
 
+    /**
+     * Este método devolve o nome do teatro
+     * @return retorna o atributo nome
+     */
     public String getNome(){
         return nomeSala;
     }
@@ -41,7 +45,14 @@ public class Teatro{
             }
     }
 
+    /**
+     * Este método varre o teatro procurando pelo parâmetro inserido, e verifica se está lotado,
+     * na primeira poltrona livre ele retorna falso.
+     * @param setor setor informado
+     * @return verdadeiro o falso pro estado "lotado".
+     */
     public boolean setorLotado(int setor){
+        
         for(int i=0; i<sala.length;i++){
             for(int j=0; j<sala[i].length;j++){
                 if(setor==sala[i][j].getSetor()){
@@ -52,6 +63,10 @@ public class Teatro{
         return true;
     }
 
+    /**
+     * Este método varre o teatro e verifica se está lotado na primeira poltrona livre ele retorna falso.
+     * @return verdadeiro o falso pro estado "lotado".
+     */
     public boolean teatroLotado(){
         for(int i=0; i<sala.length;i++){
             for(int j=0; j<sala[i].length;j++){
@@ -60,13 +75,18 @@ public class Teatro{
         }
         return true;
     }
-    
+
+    /**
+     * Este método varre o teatro e busca, em um setor informado, suas poltronas livres
+     * @param setor setor a ser verificado
+     * @return vetor de poltrona indicando sua disponibilidade.
+     */
     public Poltrona[] buscaPoltronas(int setor){
         if(setor<0 || setor>3) return null;
         int cont=0;
         for(int i=0;i<sala.length;i++){
             for(int j=0;j<sala[i].length;j++){
-                if(setor==sala[i][j].getSetor()){
+                if(sala[i][j].getSetor()==setor){
                     if(!sala[i][j].estaOcupada()) cont++;
                 }
             }
@@ -76,7 +96,7 @@ public class Teatro{
         int k=0;
         for(int i=0;i<sala.length;i++){
             for(int j=0;j<sala[i].length;j++){
-                if(setor==sala[i][j].getSetor()){
+                if(sala[i][j].getSetor()==setor){
                     if(!sala[i][j].estaOcupada()){
                         livres[k]=sala[i][j];
                         k++;
@@ -85,6 +105,52 @@ public class Teatro{
             }
         }
         return livres;
+    }
+
+    /**
+     * Este método retorna as poltronas contíguas em determinado setor, a partir de um valor minimo informado
+     * @param setor Setor a ser varrido
+     * @param n Número mínimo de poltronas a devolver
+     * @return Retorna a matriz 
+     */
+    public int[] buscaPoltronasContiguas(int setor, int n){
+        if(setor<0 || setor>3) return null;
+        int contL=0;
+        for(int i=0;i<sala.length;i++){
+            int cont=0;
+            for(int j=0;j<sala[i].length;i++){
+                if(sala[i][j].getSetor()==setor){
+                    if(!sala[i][j].estaOcupada()) cont++;
+                        else cont=0;
+                    if(cont>=n){
+                        contL++;
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        if(contL == 0) return null;
+
+        int[] contiguas = new int[contL];
+
+        int cont=0, k=0;
+        for(int i=0;i<sala.length;i++){
+            for(int j=0;j<sala[i].length;i++){
+                if(sala[i][j].getSetor()==setor){
+                    if(!sala[i][j].estaOcupada()) cont++;
+                        else cont=0;
+                    if(cont>=n){
+                        contiguas[k]=i;
+                        k++;
+                        break;
+                    }
+                }
+            }
+
+        }
+        return contiguas;
     }
 
     public String toString(){
