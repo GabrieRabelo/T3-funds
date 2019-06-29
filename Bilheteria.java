@@ -12,16 +12,23 @@ public class Bilheteria{
         Scanner input = new Scanner(System.in);
         System.out.println("\f" + umTeatro);
         int opcao;
+        System.out.println("Bem-vindo ao " + umTeatro.getNome());
         do{
-            System.out.println("Bem-vindo ao " + umTeatro.getNome() + " \nEscolha uma opcao: ");
+            System.out.println("\nEscolha uma opcao: ");
             System.out.println("1 - Mostrar poltronas livres");
             System.out.println("2 - Fila com poltronas contiguas");
+            System.out.println("3 - Fila com mais poltronas livres");
+            System.out.println("4 - Valor arrecadado");
+            System.out.println("5 - Vender ingresso");
             System.out.println("0 - Sair");
             opcao = input.nextInt();
 
             switch(opcao){
                 case 1 : buscaLivres(umTeatro); break;
                 case 2 : buscaContiguas(umTeatro); break;
+                case 3 : buscaFilaMaisLivre(umTeatro); break;
+                case 4 : buscaValorArrecadado(umTeatro); break;
+                case 5 : vendeIngresso(umTeatro); break;
                 case 0 : break;
                 default : System.out.println("Opção invalida");
             }
@@ -79,14 +86,68 @@ public class Bilheteria{
 
         int[] contiguas = t.buscaPoltronasContiguas(setor, n);
 
+        if(contiguas==null){
+            System.out.println("Não há filas com este número de poltronas contíguas.");
+            return;
+        }
+
         System.out.println("Filas com " + n + " ou mais poltronas contiguas no setor " + setor + ":\n");
 
         String letras ="ABCDEFGHIJKL";
 
         for(int i=0; i<contiguas.length;i++){
-            if(i != 0 && i % 10 == 0) System.out.println("\n");
+            if(i!=0 && i%10==0) System.out.println("\n");
             System.out.println(letras.charAt(i) + " ");
         }
+        System.out.println("\n");
     }
 
+    public static void buscaFilaMaisLivre(Teatro t){
+        if(t.teatroLotado()) { 
+            System.out.println("O teatro esta lotado."); 
+            return; 
+        }
+        
+        Scanner input = new Scanner(System.in);
+        String letras ="ABCDEFGHIJKL";
+        int setor;
+        do{
+            System.out.println("\nEscolha o setor desejado: ");
+            System.out.println("0 - Norte\n1 - Leste\n2 - Oeste\n3 - Sul");
+            setor = input.nextInt();
+            if(setor<0 || setor>3) System.out.println("Setor invalido");
+            else if(t.setorLotado(setor)) System.out.println("Setor lotado");
+        }while(setor<0 || setor>3 || t.setorLotado(setor));
+
+        System.out.println("\nA fila mais livre do setor " + setor + " é: " + letras.charAt(t.buscaFilaMaisLivre(setor)));
+    }
+
+    public static void buscaValorArrecadado(Teatro t){
+        System.out.println("\nValor arrecadado até agora: R$" + t.calculaBilheteria());
+        
+    }
+
+    public static void vendeIngresso(Teatro t){
+        if(t.teatroLotado()) { System.out.println("Teatro lotado."); return; }
+        Scanner input = new Scanner(System.in);
+        
+        Poltrona p;
+        String id;
+        do{
+            
+            buscaLivres(t);
+            System.out.println("Digite o id da poltrona EX: B6. 0 para sair");
+            id = input.next().toUpperCase();
+
+            p = t.poltronaID(id);
+            if(p != null) {
+                if (!(p.estaOcupada())) {
+                    p.reserva();
+                    System.out.println("Reserva efetuada com sucesso.");
+                    break;
+                }
+            }
+            System.out.println("Poltrona ocupada ou nao encontrada.");
+        } while(p == null || p.estaOcupada());
+    }
 }

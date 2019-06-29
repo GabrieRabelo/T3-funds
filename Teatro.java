@@ -77,6 +77,19 @@ public class Teatro{
     }
 
     /**
+     * Este método varre a matriz e verifica se está vazia, retornando false na primeira poltrona ocupada.
+     * @return true se estiverem todas não ocupadas
+     */
+    public boolean teatroVazio(){
+        for(int i=0; i<sala.length;i++){
+            for(int j=0; j<sala[i].length;j++){
+                    if(sala[i][j].estaOcupada()) return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Este método varre o teatro e busca, em um setor informado, suas poltronas livres
      * @param setor setor a ser verificado
      * @return vetor de poltrona indicando sua disponibilidade.
@@ -119,7 +132,7 @@ public class Teatro{
             int cont=0;
             for(int j=0;j<sala[i].length;j++){
                 if(sala[i][j].getSetor()==setor){
-                    if(!(sala[i][j].estaOcupada())) cont++;
+                    if(!sala[i][j].estaOcupada()) cont++;
                         else cont=0;
                     if(cont>=n){
                         contL++;
@@ -137,7 +150,7 @@ public class Teatro{
         for(int i=0;i<sala.length;i++){
             for(int j=0;j<sala[i].length;j++){
                 if(sala[i][j].getSetor()==setor){
-                    if(!(sala[i][j].estaOcupada())) cont++;
+                    if(!sala[i][j].estaOcupada()) cont++;
                         else cont=0;
                     if(cont>=n){
                         contiguas[k]=i;
@@ -148,6 +161,60 @@ public class Teatro{
             }
         }
         return contiguas;
+    }
+
+    /**
+     * Busca a fila com mais poltronas livres no setor desejado
+     * @param setor
+     * @return retorna o índice da fila que está livre
+     */
+    public int buscaFilaMaisLivre(int setor){
+    int cont, k=0;
+        for(int i=0; i<sala.length;i++){
+            cont = 0;
+            for(int j=0; j<sala[i].length;j++){
+                if(sala[i][j].getSetor()==setor){
+                    if(!sala[i][j].estaOcupada()){
+                        cont ++;
+                    }
+                }
+            }
+            if(cont>k) k = i;
+        }
+        return k;
+    }
+
+    public double calculaBilheteria(){
+        double total=0;
+        if(teatroVazio()) return total;
+
+        for(int i=0;i<sala.length;i++){
+            for(int j=0;i<sala[i].length;j++){
+                if(sala[i][j].estaOcupada()){
+                    int setor = sala[i][j].getSetor();
+                    switch(setor){
+                        case 0 : total += 150; break;
+                        case 1 : total += 80; break;
+                        case 2 : total += 75; break;
+                        case 3 : total += 50; break;
+                    }
+                }
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Este método devolve uma poltrona pela sua identificação
+     * @param id identificação a ser buscada
+     */
+    public Poltrona poltronaID(String id){
+        for (int i = 0; i < sala.length; i ++) {
+            for (int j = 0; j < sala[i].length; j ++) {
+                if (id.equals(sala[i][j].getIdentificacao())) return sala[i][j];
+            }
+        }
+        return null;
     }
 
     public String toString(){
