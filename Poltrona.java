@@ -1,8 +1,8 @@
 /**
- * Write a description of class Poltrona here.
+ * Write a description of class Bilheteria here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author (Gabriel)
+ * @version (v1)
  */
 public class Poltrona{
     private String identificacao;
