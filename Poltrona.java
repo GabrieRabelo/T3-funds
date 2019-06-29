@@ -27,9 +27,11 @@ public class Poltrona{
     public void reserva(){
         ocupada = true;
     }
+
     public void libera(){
         ocupada = false;
     }
+    
     public String toString(){
         if(ocupada) return setor +"O";
         return setor + "L";

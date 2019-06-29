@@ -41,6 +41,26 @@ public class Teatro{
             }
     }
 
+    public boolean setorLotado(int setor){
+        for(int i=0; i<sala.length;i++){
+            for(int j=0; j<sala[i].length;j++){
+                if(setor==sala[i][j].getSetor()){
+                    if(!(sala[i][j].estaOcupada())) return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean teatroLotado(){
+        for(int i=0; i<sala.length;i++){
+            for(int j=0; j<sala[i].length;j++){
+                    if(!(sala[i][j].estaOcupada())) return false;
+            }
+        }
+        return true;
+    }
+    
     public Poltrona[] buscaPoltronas(int setor){
         if(setor<0 || setor>3) return null;
         int cont=0;
@@ -65,26 +85,6 @@ public class Teatro{
             }
         }
         return livres;
-    }
-
-    public boolean setorLotado(int setor){
-        for(int i=0; i<sala.length;i++){
-            for(int j=0; j<sala[i].length;j++){
-                if(setor==sala[i][j].getSetor()){
-                    if(!(sala[i][j].estaOcupada())) return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public boolean teatroLotado(){
-        for(int i=0; i<sala.length;i++){
-            for(int j=0; j<sala[i].length;j++){
-                    if(!(sala[i][j].estaOcupada())) return false;
-            }
-        }
-        return true;
     }
 
     public String toString(){
