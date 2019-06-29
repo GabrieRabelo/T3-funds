@@ -4,8 +4,7 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Poltrona
-{
+public class Poltrona{
     private String identificacao;
     private int setor;
     private boolean ocupada;

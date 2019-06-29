@@ -4,8 +4,7 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Teatro
-{
+public class Teatro{
    private String nomeSala;
    private Poltrona[][] sala;
    
