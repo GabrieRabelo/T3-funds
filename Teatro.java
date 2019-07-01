@@ -208,13 +208,33 @@ public class Teatro{
      * Este método devolve uma poltrona pela sua identificação
      * @param id identificação a ser buscada
      */
-    public Poltrona poltronaID(String id){
+    public int vendeIngresso(String id, int qnt){
+        int vendas = 0;
         for (int i = 0; i < sala.length; i ++) {
-            for (int j = 0; j < sala[i].length; j ++) {
-                if (id.equals(sala[i][j].getIdentificacao())) return sala[i][j];
+            for (int j = 0; j <sala[i].length; j ++) {
+                if (id.equals(sala[i][j].getIdentificacao()))if(!sala[i][j].estaOcupada()){
+                    if(!sala[i][j].estaOcupada()){
+                        for(int k = 0; k<qnt;k++){
+                            if(!sala[i][j+k].estaOcupada()){
+                                sala[i][j+k].reserva();
+                                vendas++;
+                            }
+                        
+                        }
+
+                    }
+                    else break;
+                }
             }
         }
-        return null;
+        return vendas;
+    }
+
+    public boolean reservaPoltrona(String id, int qnt){
+        int vendeu = vendeIngresso(id,qnt);
+        if (vendeu <=0) return false;
+        return true;
+        
     }
 
     public String toString(){

@@ -133,21 +133,26 @@ public class Bilheteria{
         
         Poltrona p;
         String id;
+        int quant;
         do{
             
             buscaLivres(t);
+            do{
+                System.out.println("Quantos ingressos deseja comprar?");
+                quant = input.nextInt();
+                if(quant == 0) return;
+                if(quant>9) System.out.println("Para comprar mais que nove ingressos repita a compra com menos quantidade.");
+            }while(quant < 0 || quant > 9);
+
             System.out.println("Digite o id da poltrona EX: B6. 0 para sair");
             id = input.next().toUpperCase();
-
-            p = t.poltronaID(id);
-            if(p != null) {
-                if (!(p.estaOcupada())) {
-                    p.reserva();
-                    System.out.println("Reserva efetuada com sucesso.");
-                    break;
+            if(id.equals("0")) return;
+            boolean compra = t.reservaPoltrona(id, quant);
+            if (compra == false) System.out.println("Poltrona ocupada ou nao encontrada.");
+                else {
+                    System.out.print("Compra realizada com sucesso");
+                    return;
                 }
-            }
-            System.out.println("Poltrona ocupada ou nao encontrada.");
-        } while(p == null || p.estaOcupada());
+        }while(true);
     }
 }
